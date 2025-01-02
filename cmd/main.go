@@ -1,12 +1,10 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
-	"os"
 
+	"ecommerce_backend/internal/db"
 	"ecommerce_backend/pkg/config"
 
 	"github.com/joho/godotenv"
@@ -19,19 +17,12 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	connStr := os.Getenv("DATABASE_URL")
-	db, err := sql.Open("postgres", connStr)
+	database, err := db.Connect()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
+	defer database.Close()
 
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Successfully connected to PostgreSQL!")
 	cfg := config.LoadConfig()
 
 	// Initialize HTTP server
