@@ -7,12 +7,14 @@ POST http://localhost:8081/api/furniture
 Accept: application/json
 
 {
-  "id": "1",
-  "name": "Chair",
-  "description": "A comfortable chair",
-  "price": 49.99,
-  "image_url": "http://example.com/chair.jpg",
-  "category": "Seating"
+    "name": "Modern Chair",
+    "description": "A sleek modern chair.",
+    "price": 199.99,
+    "image_url": "https://example.com/chair.jpg",
+    "category": "Chairs",
+    "colors": ["red", "blue", "green"],
+    "sizes": ["small", "medium", "large"],
+    "images": ["https://example.com/img1.jpg", "https://example.com/img2.jpg"]
 }
 
 ### Get Hello

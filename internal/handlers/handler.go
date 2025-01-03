@@ -5,7 +5,6 @@ import (
 	"ecommerce_backend/internal/services"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -70,10 +69,4 @@ func (h *Handler) AddFurniture(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-}
-
-func (h *Handler) Hello(w http.ResponseWriter, r *http.Request) {
-	log.Println("Received GET request for hello")
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Hello, World!"))
 }
