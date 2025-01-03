@@ -1,0 +1,19 @@
+### Get Furniture List
+GET http://localhost:8081/api/furniture
+Accept: application/json
+
+### POST Furniture List
+POST http://localhost:8081/api/furniture
+Accept: application/json
+
+{
+  "id": "1",
+  "name": "Chair",
+  "description": "A comfortable chair",
+  "price": 49.99,
+  "image_url": "http://example.com/chair.jpg",
+  "category": "Seating"
+}
+
+### Get Hello
+GET http://localhost:8081/hello

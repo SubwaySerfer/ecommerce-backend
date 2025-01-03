@@ -55,3 +55,10 @@ func (r *Repository) CreateCart(cartItem models.CartItem) {
 	defer r.mu.Unlock()
 	r.cartList = append(r.cartList, cartItem)
 }
+
+func (r *Repository) AddFurniture(furniture models.Furniture) error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	r.furnitureList = append(r.furnitureList, furniture)
+	return nil
+}
