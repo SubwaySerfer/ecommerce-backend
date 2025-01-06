@@ -20,11 +20,15 @@ func (h *Handler) GetFurnitureList(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("GetFurnitureList\n")
 	furnitureList, err := h.Service.GetFurnitureList()
 	if err != nil {
+		fmt.Printf("Error getting furniture list: %v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(furnitureList)
+	if err := json.NewEncoder(w).Encode(furnitureList); err != nil {
+		fmt.Printf("Error encoding response: %v\n", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 // func (h *Handler) ToggleFavorite(w http.ResponseWriter, r *http.Request) {

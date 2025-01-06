@@ -29,12 +29,35 @@ func NewRepository(db *sql.DB) *Repository {
 }
 
 func (r *Repository) GetFurnitureList() ([]models.Furniture, error) {
-	r.mu.RLock()
-	defer r.mu.RUnlock()
-	if len(r.furnitureList) == 0 {
+	query := `SELECT id, name, description, price, image_url, category, colors, sizes, images FROM furniture`
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query furniture: %w", err)
+	}
+	defer rows.Close()
+
+	var furnitureList []models.Furniture
+	for rows.Next() {
+		var furniture models.Furniture
+		var colors, sizes, images pq.StringArray
+		if err := rows.Scan(&furniture.ID, &furniture.Name, &furniture.Description, &furniture.Price, &furniture.ImageURL, &furniture.Category, &colors, &sizes, &images); err != nil {
+			return nil, fmt.Errorf("failed to scan furniture: %w", err)
+		}
+		furniture.Colors = colors
+		furniture.Sizes = sizes
+		furniture.Images = images
+		furnitureList = append(furnitureList, furniture)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("rows error: %w", err)
+	}
+
+	if len(furnitureList) == 0 {
 		return nil, errors.New("no furniture available")
 	}
-	return r.furnitureList, nil
+
+	return furnitureList, nil
 }
 
 func (r *Repository) AddToFavorites(furniture models.Furniture) error {
