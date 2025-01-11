@@ -35,5 +35,9 @@ Accept: application/json
 GET http://localhost:8081/api/blog/1
 Accept: application/json
 
+### Delete Blog Post
+DELETE http://localhost:8081/api/blog/1
+Accept: application/json
+
 ### Get Hello
 GET http://localhost:8081/hello

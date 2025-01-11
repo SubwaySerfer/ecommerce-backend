@@ -132,3 +132,16 @@ func (h *Handler) GetBlogPostByID(w http.ResponseWriter, r *http.Request) {
 	}
 	writeJSONResponse(w, http.StatusOK, blogPost)
 }
+
+func (h *Handler) DeleteBlogPostByID(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("DeleteBlogPost\n")
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	err := h.Service.DeleteBlogPostByID(id)
+	if err != nil {
+		handleServiceError(w, err, "Error deleting blog post")
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}

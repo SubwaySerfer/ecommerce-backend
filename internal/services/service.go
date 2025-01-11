@@ -25,6 +25,10 @@ func (s *Service) GetBlogPostByID(id string) (models.Blog, error) {
 	return s.repo.GetBlogPostByID(id)
 }
 
+func (s *Service) DeleteBlogPostByID(id string) error {
+	return s.repo.DeleteBlogPostByID(id)
+}
+
 // func (s *Service) AddToFavorites(userID string, furnitureID string) error {
 // 	return s.repo.AddFavorite(userID, furnitureID)
 // }

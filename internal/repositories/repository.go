@@ -174,3 +174,24 @@ func (r *Repository) GetBlogPostByID(id string) (models.Blog, error) {
 
 	return blog, nil
 }
+
+func (r *Repository) DeleteBlogPostByID(id string) error {
+	// Check if the blog post exists
+	existsQuery := `SELECT 1 FROM blogs WHERE id = $1`
+	var exists int
+	err := r.db.QueryRow(existsQuery, id).Scan(&exists)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return errors.New("blog post not found")
+		}
+		return fmt.Errorf("failed to check blog post existence: %w", err)
+	}
+
+	// Delete the blog post
+	deleteQuery := `DELETE FROM blogs WHERE id = $1`
+	_, err = r.db.Exec(deleteQuery, id)
+	if err != nil {
+		return fmt.Errorf("failed to delete blog post: %w", err)
+	}
+	return nil
+}
