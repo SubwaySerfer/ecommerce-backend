@@ -37,6 +37,8 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/furniture", handler.GetFurnitureList).Methods("GET")
 	r.HandleFunc("/api/furniture", handler.AddFurniture).Methods("POST")
+	r.HandleFunc("/api/furniture/{id}", handler.DeleteFurnitureByID).Methods("DELETE")
+
 	r.HandleFunc("/api/blog", handler.AddBlogPost).Methods("POST")
 	r.HandleFunc("/api/blog", handler.GetBlogPosts).Methods("GET")
 	r.HandleFunc("/api/blog/{id}", handler.GetBlogPostByID).Methods("GET")

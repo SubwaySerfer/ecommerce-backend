@@ -17,11 +17,15 @@ Accept: application/json
     "images": ["https://example.com/img1.jpg", "https://example.com/img2.jpg"]
 }
 
+### DELETE Furniture Item
+DELETE http://localhost:8081/api/furniture/1
+Accept: application/json
+
 ### POST add Blog post
 POST http://localhost:8081/api/blog
 
 {
-    "title": "My First Blog Post 2",
+    "title": "My First Blog Post 5",
     "content": "This is my Second blog post. It's not very long, but it's a start.",
     "author": "John Dong",
     "created_at": "2021-01-02"

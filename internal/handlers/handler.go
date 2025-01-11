@@ -91,6 +91,18 @@ func (h *Handler) AddFurniture(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+func (h *Handler) DeleteFurnitureByID(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("DeleteFurnitureByID\n")
+	vars := mux.Vars(r)
+	id := vars["id"]
+	err := h.Service.DeleteFurnitureByID(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}
+
 func (h *Handler) AddBlogPost(w http.ResponseWriter, r *http.Request) {
 	var blog models.Blog
 	if err := json.NewDecoder(r.Body).Decode(&blog); err != nil {

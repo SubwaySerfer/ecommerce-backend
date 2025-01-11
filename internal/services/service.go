@@ -17,6 +17,10 @@ func (s *Service) GetFurnitureList() ([]models.Furniture, error) {
 	return s.repo.GetFurnitureList()
 }
 
+func (s *Service) DeleteFurnitureByID(id string) error {
+	return s.repo.DeleteFurnitureByID(id)
+}
+
 func (s *Service) GetBlogPosts() ([]models.Blog, error) {
 	return s.repo.GetBlogPosts()
 }

@@ -115,6 +115,15 @@ func (r *Repository) AddFurniture(furniture models.Furniture) error {
 	return nil
 }
 
+func (r *Repository) DeleteFurnitureByID(id string) error {
+	query := `DELETE FROM furniture WHERE id = $1`
+	_, err := r.db.Exec(query, id)
+	if err != nil {
+		return fmt.Errorf("failed to delete furniture: %w", err)
+	}
+	return nil
+}
+
 func (r *Repository) AddBlogPost(blog models.Blog) error {
 	query := `
 			INSERT INTO blogs
