@@ -39,7 +39,7 @@ func main() {
 	r.HandleFunc("/api/furniture", handler.AddFurniture).Methods("POST")
 	r.HandleFunc("/api/blog", handler.AddBlogPost).Methods("POST")
 	r.HandleFunc("/api/blog", handler.GetBlogPosts).Methods("GET")
-	r.HandleFunc("api/blog/{id}", handler.GetBlogPostByID).Methods("GET")
+	r.HandleFunc("/api/blog/{id}", handler.GetBlogPostByID).Methods("GET")
 	r.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Hello")
 	}).Methods("GET")

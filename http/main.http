@@ -32,7 +32,7 @@ GET http://localhost:8081/api/blog
 Accept: application/json
 
 ### Get Blog Post
-GET http://localhost:8081/api/blog/2
+GET http://localhost:8081/api/blog/1
 Accept: application/json
 
 ### Get Hello

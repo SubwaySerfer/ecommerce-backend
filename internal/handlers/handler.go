@@ -123,7 +123,11 @@ func (h *Handler) GetBlogPostByID(w http.ResponseWriter, r *http.Request) {
 
 	blogPost, err := h.Service.GetBlogPostByID(id)
 	if err != nil {
-		handleServiceError(w, err, "Error getting blog post")
+		if err.Error() == "sql: no rows in result set" {
+			http.Error(w, "Blog post not found", http.StatusNotFound)
+		} else {
+			http.Error(w, "Failed to retrieve blog post", http.StatusInternalServerError)
+		}
 		return
 	}
 	writeJSONResponse(w, http.StatusOK, blogPost)
