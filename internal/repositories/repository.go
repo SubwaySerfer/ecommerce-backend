@@ -134,3 +134,43 @@ func (r *Repository) AddBlogPost(blog models.Blog) error {
 	}
 	return nil
 }
+
+func (r *Repository) GetBlogPosts() ([]models.Blog, error) {
+	query := `SELECT id, title, content, author, created_at FROM blogs`
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query blog posts: %w", err)
+	}
+	defer rows.Close()
+
+	var blogPosts []models.Blog
+	for rows.Next() {
+		var blog models.Blog
+		if err := rows.Scan(&blog.ID, &blog.Title, &blog.Content, &blog.Author, &blog.CreatedAt); err != nil {
+			return nil, fmt.Errorf("failed to scan blog post: %w", err)
+		}
+		blogPosts = append(blogPosts, blog)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("rows error: %w", err)
+	}
+
+	if len(blogPosts) == 0 {
+		return nil, errors.New("no blog posts available")
+	}
+
+	return blogPosts, nil
+}
+
+func (r *Repository) GetBlogPostByID(id string) (models.Blog, error) {
+	query := `SELECT id, title, content, author, created_at FROM blogs WHERE id = $1`
+	row := r.db.QueryRow(query, id)
+
+	var blog models.Blog
+	if err := row.Scan(&blog.ID, &blog.Title, &blog.Content, &blog.Author, &blog.CreatedAt); err != nil {
+		return models.Blog{}, fmt.Errorf("failed to scan blog post: %w", err)
+	}
+
+	return blog, nil
+}

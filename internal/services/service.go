@@ -17,6 +17,14 @@ func (s *Service) GetFurnitureList() ([]models.Furniture, error) {
 	return s.repo.GetFurnitureList()
 }
 
+func (s *Service) GetBlogPosts() ([]models.Blog, error) {
+	return s.repo.GetBlogPosts()
+}
+
+func (s *Service) GetBlogPostByID(id string) (models.Blog, error) {
+	return s.repo.GetBlogPostByID(id)
+}
+
 // func (s *Service) AddToFavorites(userID string, furnitureID string) error {
 // 	return s.repo.AddFavorite(userID, furnitureID)
 // }

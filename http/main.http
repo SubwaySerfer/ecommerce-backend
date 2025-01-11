@@ -21,11 +21,19 @@ Accept: application/json
 POST http://localhost:8081/api/blog
 
 {
-    "title": "My First Blog Post",
-    "content": "This is my first blog post. It's not very long, but it's a start.",
-    "author": "John Doe",
-    "created_at": "2021-01-01"
+    "title": "My First Blog Post 2",
+    "content": "This is my Second blog post. It's not very long, but it's a start.",
+    "author": "John Dong",
+    "created_at": "2021-01-02"
 }
+
+### Get Blog List
+GET http://localhost:8081/api/blog
+Accept: application/json
+
+### Get Blog Post
+GET http://localhost:8081/api/blog/2
+Accept: application/json
 
 ### Get Hello
 GET http://localhost:8081/hello

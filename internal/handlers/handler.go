@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 type Handler struct {
@@ -14,6 +16,20 @@ type Handler struct {
 
 func NewHandler(service *services.Service) *Handler {
 	return &Handler{Service: service}
+}
+
+func handleServiceError(w http.ResponseWriter, err error, message string) {
+	fmt.Printf("%s: %v\n", message, err)
+	http.Error(w, err.Error(), http.StatusInternalServerError)
+}
+
+func writeJSONResponse(w http.ResponseWriter, status int, data interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	if err := json.NewEncoder(w).Encode(data); err != nil {
+		fmt.Printf("Error encoding response: %v\n", err)
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+	}
 }
 
 func (h *Handler) GetFurnitureList(w http.ResponseWriter, r *http.Request) {
@@ -87,4 +103,28 @@ func (h *Handler) AddBlogPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
+}
+
+func (h *Handler) GetBlogPosts(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("GetBlogPosts\n")
+	blogPosts, err := h.Service.GetBlogPosts()
+
+	if err != nil {
+		handleServiceError(w, err, "Error getting blog posts")
+		return
+	}
+	writeJSONResponse(w, http.StatusOK, blogPosts)
+}
+
+func (h *Handler) GetBlogPostByID(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("GetBlogPostByID\n")
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	blogPost, err := h.Service.GetBlogPostByID(id)
+	if err != nil {
+		handleServiceError(w, err, "Error getting blog post")
+		return
+	}
+	writeJSONResponse(w, http.StatusOK, blogPost)
 }
