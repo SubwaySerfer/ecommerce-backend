@@ -74,3 +74,17 @@ func (h *Handler) AddFurniture(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 }
+
+func (h *Handler) AddBlogPost(w http.ResponseWriter, r *http.Request) {
+	var blog models.Blog
+	if err := json.NewDecoder(r.Body).Decode(&blog); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	err := h.Service.AddBlogPost(blog)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusCreated)
+}

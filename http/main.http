@@ -2,7 +2,7 @@
 GET http://localhost:8081/api/furniture
 Accept: application/json
 
-### POST Furniture List
+### POST Add to Furniture List
 POST http://localhost:8081/api/furniture
 Accept: application/json
 
@@ -15,6 +15,16 @@ Accept: application/json
     "colors": ["red", "blue", "green"],
     "sizes": ["small", "medium", "large"],
     "images": ["https://example.com/img1.jpg", "https://example.com/img2.jpg"]
+}
+
+### POST add Blog post
+POST http://localhost:8081/api/blog
+
+{
+    "title": "My First Blog Post",
+    "content": "This is my first blog post. It's not very long, but it's a start.",
+    "author": "John Doe",
+    "created_at": "2021-01-01"
 }
 
 ### Get Hello

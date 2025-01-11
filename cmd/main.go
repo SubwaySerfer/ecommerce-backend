@@ -31,12 +31,13 @@ func main() {
 	cfg := config.LoadConfig()
 
 	repo := repositories.NewRepository(database)
-	service := services.NewService(*repo)
+	service := services.NewService(repo)
 	handler := handlers.NewHandler(service)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/furniture", handler.GetFurnitureList).Methods("GET")
 	r.HandleFunc("/api/furniture", handler.AddFurniture).Methods("POST")
+	r.HandleFunc("/api/blog", handler.AddBlogPost).Methods("POST")
 	r.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Hello")
 	}).Methods("GET")

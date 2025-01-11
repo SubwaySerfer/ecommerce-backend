@@ -6,10 +6,10 @@ import (
 )
 
 type Service struct {
-	repo repositories.Repository
+	repo *repositories.Repository
 }
 
-func NewService(repo repositories.Repository) *Service {
+func NewService(repo *repositories.Repository) *Service {
 	return &Service{repo: repo}
 }
 
@@ -35,4 +35,8 @@ func (s *Service) GetFurnitureList() ([]models.Furniture, error) {
 
 func (s *Service) AddFurniture(furniture models.Furniture) error {
 	return s.repo.AddFurniture(furniture)
+}
+
+func (s *Service) AddBlogPost(blog models.Blog) error {
+	return s.repo.AddBlogPost(blog)
 }

@@ -114,3 +114,23 @@ func (r *Repository) AddFurniture(furniture models.Furniture) error {
 	}
 	return nil
 }
+
+func (r *Repository) AddBlogPost(blog models.Blog) error {
+	query := `
+			INSERT INTO blogs
+			(title, content, author, created_at)
+			VALUES ($1, $2, $3, $4)
+	`
+
+	_, err := r.db.Exec(
+		query,
+		blog.Title,
+		blog.Content,
+		blog.Author,
+		blog.CreatedAt,
+	)
+	if err != nil {
+		return fmt.Errorf("failed to insert blog post: %w", err)
+	}
+	return nil
+}

@@ -30,3 +30,11 @@ type CartItem struct {
 	FurnitureID string `json:"furniture_id"`
 	Quantity    int    `json:"quantity"`
 }
+
+type Blog struct {
+	ID        string `json:"id"`
+	Title     string `json:"title"`
+	Content   string `json:"content"`
+	Author    string `json:"author"`
+	CreatedAt string `json:"created_at"`
+}
