@@ -45,6 +45,7 @@ func main() {
 	r.HandleFunc("/api/blog/{id}", handler.DeleteBlogPostByID).Methods("DELETE")
 
 	r.HandleFunc("/api/users", handler.CreateUser).Methods("POST")
+	r.HandleFunc("/api/users/{id}", handler.UpdateUser).Methods("PUT")
 	r.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Hello")
 	}).Methods("GET")

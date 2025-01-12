@@ -173,3 +173,23 @@ func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 }
+
+func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("UpdateUser\n")
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	var user models.User
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	user.ID = id
+	err := h.Service.UpdateUser(user)
+	if err != nil {
+		handleServiceError(w, err, "Error updating user")
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}

@@ -9,3 +9,13 @@ Content-Type: application/json
     "password": "password1",
     "email": "test1@mail.ru"
 }
+
+### Update user
+PUT {{url}}/api/users/3
+Content-Type: application/json
+
+{
+    "username": "john doe2",
+    "password": "password2",
+    "email": ""
+}

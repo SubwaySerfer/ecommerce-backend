@@ -37,6 +37,10 @@ func (s *Service) CreateUser(user models.User) error {
 	return s.repo.CreateUser(user)
 }
 
+func (s *Service) UpdateUser(user models.User) error {
+	return s.repo.UpdateUser(user)
+}
+
 // func (s *Service) AddToFavorites(userID string, furnitureID string) error {
 // 	return s.repo.AddFavorite(userID, furnitureID)
 // }

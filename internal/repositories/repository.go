@@ -225,3 +225,58 @@ func (r *Repository) CreateUser(user models.User) error {
 	}
 	return nil
 }
+
+// func (r *Repository) UpdateUser(user models.User) error {
+// 	query := `
+// 		UPDATE users
+// 		SET username = $2, email = $3, password = $4
+// 		WHERE id = $1
+// 	`
+
+// 	fmt.Printf("user: %v\n", user)
+// 	_, err := r.db.Exec(
+// 		query,
+// 		user.ID,
+// 		user.Username,
+// 		user.Email,
+// 		user.Password,
+// 	)
+// 	if err != nil {
+// 		return fmt.Errorf("failed to update user: %w", err)
+// 	}
+// 	return nil
+// }
+
+func (r *Repository) UpdateUser(user models.User) error {
+	query := `UPDATE users SET `
+	params := []interface{}{}
+	paramID := 1
+
+	if user.Username != "" {
+		query += fmt.Sprintf("username = $%d, ", paramID)
+		params = append(params, user.Username)
+		paramID++
+	}
+	if user.Email != "" {
+		query += fmt.Sprintf("email = $%d, ", paramID)
+		params = append(params, user.Email)
+		paramID++
+	}
+	if user.Password != "" {
+		query += fmt.Sprintf("password = $%d, ", paramID)
+		params = append(params, user.Password)
+		paramID++
+	}
+
+	// Remove the trailing comma and space
+	query = query[:len(query)-2]
+
+	query += fmt.Sprintf(" WHERE id = $%d", paramID)
+	params = append(params, user.ID)
+
+	_, err := r.db.Exec(query, params...)
+	if err != nil {
+		return fmt.Errorf("failed to update user: %w", err)
+	}
+	return nil
+}
