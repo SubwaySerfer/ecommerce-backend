@@ -1,0 +1,11 @@
+@url = http://localhost:8081
+
+### Create user
+POST {{url}}/api/users
+Content-Type: application/json
+
+{
+    "username": "john doe1",
+    "password": "password1",
+    "email": "test1@mail.ru"
+}

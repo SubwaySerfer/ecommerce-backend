@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"time"
 
 	"ecommerce_backend/internal/models"
 
@@ -201,6 +202,26 @@ func (r *Repository) DeleteBlogPostByID(id string) error {
 	_, err = r.db.Exec(deleteQuery, id)
 	if err != nil {
 		return fmt.Errorf("failed to delete blog post: %w", err)
+	}
+	return nil
+}
+
+func (r *Repository) CreateUser(user models.User) error {
+	query := `
+		INSERT INTO users
+		(username, email, password, created_at)
+		VALUES ($1, $2, $3, $4)
+	`
+
+	_, err := r.db.Exec(
+		query,
+		user.Username,
+		user.Email,
+		user.Password,
+		time.Now(),
+	)
+	if err != nil {
+		return fmt.Errorf("failed to insert user: %w", err)
 	}
 	return nil
 }

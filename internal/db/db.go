@@ -8,6 +8,7 @@ import (
 
 	"ecommerce_backend/internal/db/blogs"
 	"ecommerce_backend/internal/db/furniture"
+	"ecommerce_backend/internal/db/users"
 
 	_ "github.com/lib/pq"
 )
@@ -29,7 +30,13 @@ func Connect() (*sql.DB, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	err = blogs.CreateBlogsTable(db)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = users.CreateUsersTable(db)
 	if err != nil {
 		log.Fatal(err)
 	}

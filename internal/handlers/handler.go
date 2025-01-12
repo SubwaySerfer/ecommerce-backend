@@ -157,3 +157,19 @@ func (h *Handler) DeleteBlogPostByID(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
+
+func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("CreateUser\n")
+	var user models.User
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	err := h.Service.CreateUser(user)
+	if err != nil {
+		handleServiceError(w, err, "Error creating user")
+		return
+	}
+	w.WriteHeader(http.StatusCreated)
+}

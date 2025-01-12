@@ -43,6 +43,8 @@ func main() {
 	r.HandleFunc("/api/blog", handler.GetBlogPosts).Methods("GET")
 	r.HandleFunc("/api/blog/{id}", handler.GetBlogPostByID).Methods("GET")
 	r.HandleFunc("/api/blog/{id}", handler.DeleteBlogPostByID).Methods("DELETE")
+
+	r.HandleFunc("/api/users", handler.CreateUser).Methods("POST")
 	r.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Hello")
 	}).Methods("GET")
