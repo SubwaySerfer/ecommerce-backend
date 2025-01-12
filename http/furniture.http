@@ -1,0 +1,24 @@
+@url = http://localhost:8081
+
+### Get Furniture List
+GET {{url}}/api/furniture
+Accept: application/json
+
+### POST Add to Furniture List
+POST {{url}}/api/furniture
+Accept: application/json
+
+{
+    "name": "Modern Chair",
+    "description": "A sleek modern chair.",
+    "price": 199.99,
+    "image_url": "https://example.com/chair.jpg",
+    "category": "Chairs",
+    "colors": ["red", "blue", "green"],
+    "sizes": ["small", "medium", "large"],
+    "images": ["https://example.com/img1.jpg", "https://example.com/img2.jpg"]
+}
+
+### DELETE Furniture Item
+DELETE {{url}}/api/furniture/1
+Accept: application/json
