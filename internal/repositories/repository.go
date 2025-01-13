@@ -280,3 +280,24 @@ func (r *Repository) UpdateUser(user models.User) error {
 	}
 	return nil
 }
+
+func (r *Repository) AddContactFormItem(cf models.ContactForm) error {
+	query := `
+		INSERT INTO contact_form
+		(name, email, subject, message, created)
+		VALUES ($1, $2, $3, $4, $5)
+	`
+
+	_, err := r.db.Exec(
+		query,
+		cf.Name,
+		cf.Email,
+		cf.Subject,
+		cf.Message,
+		time.Now(),
+	)
+	if err != nil {
+		return fmt.Errorf("failed to insert contact form item: %w", err)
+	}
+	return nil
+}

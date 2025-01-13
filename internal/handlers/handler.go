@@ -193,3 +193,19 @@ func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
+
+func (h *Handler) AddContactFormItem(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("AddContactForm\n")
+	var contactForm models.ContactForm
+	if err := json.NewDecoder(r.Body).Decode(&contactForm); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	err := h.Service.AddContactFormItem(contactForm)
+	if err != nil {
+		handleServiceError(w, err, "Error adding contact form")
+		return
+	}
+	w.WriteHeader(http.StatusCreated)
+}

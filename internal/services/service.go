@@ -64,3 +64,7 @@ func (s *Service) AddFurniture(furniture models.Furniture) error {
 func (s *Service) AddBlogPost(blog models.Blog) error {
 	return s.repo.AddBlogPost(blog)
 }
+
+func (s *Service) AddContactFormItem(contact models.ContactForm) error {
+	return s.repo.AddContactFormItem(contact)
+}

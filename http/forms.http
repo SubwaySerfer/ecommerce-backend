@@ -1,0 +1,12 @@
+@url = http://localhost:8081
+
+### Create a new contact form
+POST {{url}}/api/contact
+Content-Type: application/json
+
+{
+    "name": "John Doe 2",
+    "email": "test1",
+    "message": "Hello, I am interested in your products.",
+    "subject": "Interested in Products"
+}
