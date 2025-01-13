@@ -10,3 +10,6 @@ Content-Type: application/json
     "message": "Hello, I am interested in your products.",
     "subject": "Interested in Products"
 }
+
+### Get all contact forms
+GET {{url}}/api/contact

@@ -301,3 +301,31 @@ func (r *Repository) AddContactFormItem(cf models.ContactForm) error {
 	}
 	return nil
 }
+
+func (r *Repository) GetAllContactForms() ([]models.ContactForm, error) {
+	query := `SELECT id, name, email, subject, message, created FROM contact_form`
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query contact forms: %w", err)
+	}
+	defer rows.Close()
+
+	var contactForms []models.ContactForm
+	for rows.Next() {
+		var cf models.ContactForm
+		if err := rows.Scan(&cf.ID, &cf.Name, &cf.Email, &cf.Subject, &cf.Message, &cf.Created); err != nil {
+			return nil, fmt.Errorf("failed to scan contact form: %w", err)
+		}
+		contactForms = append(contactForms, cf)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("rows error: %w", err)
+	}
+
+	if len(contactForms) == 0 {
+		return nil, errors.New("no contact forms available")
+	}
+
+	return contactForms, nil
+}

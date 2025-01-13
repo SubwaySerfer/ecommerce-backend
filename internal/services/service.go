@@ -68,3 +68,7 @@ func (s *Service) AddBlogPost(blog models.Blog) error {
 func (s *Service) AddContactFormItem(contact models.ContactForm) error {
 	return s.repo.AddContactFormItem(contact)
 }
+
+func (s *Service) GetAllContactForms() ([]models.ContactForm, error) {
+	return s.repo.GetAllContactForms()
+}

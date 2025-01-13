@@ -43,6 +43,7 @@ type Blog struct {
 }
 
 type ContactForm struct {
+	ID      string
 	Name    string
 	Email   string
 	Subject string

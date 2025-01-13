@@ -209,3 +209,13 @@ func (h *Handler) AddContactFormItem(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 }
+
+func (h *Handler) GetAllContactForms(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("GetAllContactForms\n")
+	contactForms, err := h.Service.GetAllContactForms()
+	if err != nil {
+		handleServiceError(w, err, "Error getting contact forms")
+		return
+	}
+	writeJSONResponse(w, http.StatusOK, contactForms)
+}

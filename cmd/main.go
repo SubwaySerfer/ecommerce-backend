@@ -48,6 +48,7 @@ func main() {
 	r.HandleFunc("/api/users/{id}", handler.UpdateUser).Methods("PUT")
 
 	r.HandleFunc("/api/contact", handler.AddContactFormItem).Methods("POST")
+	r.HandleFunc("/api/contact", handler.GetAllContactForms).Methods("GET")
 
 	r.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Hello")
