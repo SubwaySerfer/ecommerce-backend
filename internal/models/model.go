@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type Furniture struct {
 	ID          string   `json:"id"`
 	Name        string   `json:"name"`
@@ -38,4 +40,12 @@ type Blog struct {
 	Content   string `json:"content"`
 	Author    string `json:"author"`
 	CreatedAt string `json:"created_at"`
+}
+
+type ContactForm struct {
+	Name    string
+	Email   string
+	Subject string
+	Message string
+	Created time.Time
 }

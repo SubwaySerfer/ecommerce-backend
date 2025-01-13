@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"ecommerce_backend/internal/db/blogs"
+	"ecommerce_backend/internal/db/contact_form"
 	"ecommerce_backend/internal/db/furniture"
 	"ecommerce_backend/internal/db/users"
 
@@ -37,6 +38,11 @@ func Connect() (*sql.DB, error) {
 	}
 
 	err = users.CreateUsersTable(db)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = contact_form.CreateContactFormTable(db)
 	if err != nil {
 		log.Fatal(err)
 	}
