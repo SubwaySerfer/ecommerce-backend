@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"ecommerce_backend/internal/cloudinary"
 	"ecommerce_backend/internal/db"
 	"ecommerce_backend/internal/handlers"
 	"ecommerce_backend/internal/repositories"
@@ -60,6 +61,11 @@ func main() {
 		gorillahandlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
 		gorillahandlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
 	)
+
+	cld, ctx := cloudinary.Credentials()
+	cloudinary.UploadImage(cld, ctx)
+	cloudinary.GetAssetInfo(cld, ctx)
+	cloudinary.TransformImage(cld, ctx)
 
 	log.Printf("Server is running on http://localhost:%s", cfg.Port)
 	if err := http.ListenAndServe(":"+cfg.Port, corsOptions(r)); err != nil {
