@@ -11,6 +11,7 @@ import (
 	"ecommerce_backend/internal/services"
 	"ecommerce_backend/pkg/config"
 
+	gorillahandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -54,8 +55,14 @@ func main() {
 		fmt.Fprintln(w, "Hello")
 	}).Methods("GET")
 
-	log.Printf("Starting server on %s", cfg.Port)
-	if err := http.ListenAndServe(":"+cfg.Port, r); err != nil {
+	corsOptions := gorillahandlers.CORS(
+		gorillahandlers.AllowedOrigins([]string{"http://localhost:5173"}),
+		gorillahandlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+		gorillahandlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
+	)
+
+	log.Printf("Server is running on http://localhost:%s", cfg.Port)
+	if err := http.ListenAndServe(":"+cfg.Port, corsOptions(r)); err != nil {
 		log.Fatal(err)
 	}
 }
